@@ -75,10 +75,11 @@
   </update>
 
 
-  <select id="findLimited" resultMap="BaseResultMap" fetchSize="100">
+  <select id="findLimited" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from cities
     order by id
+    limit 10
   </select>
 </mapper>
