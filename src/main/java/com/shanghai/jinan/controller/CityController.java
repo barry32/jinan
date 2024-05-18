@@ -25,7 +25,7 @@ public class CityController {
 
     @GetMapping("/delayed/items")
     public ApiResponse<List<CityVo>> getCityListDelayed() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(150);
         List<CityVo> cityList = iDestinationBizService.getCityList();
         return new ApiResponse<>(ApiResponse.RS_CODE_SUCCESS, "success",cityList);
     }
