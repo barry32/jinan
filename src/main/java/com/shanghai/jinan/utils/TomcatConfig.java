@@ -1,15 +1,9 @@
 package com.shanghai.jinan.utils;
 
-import org.apache.catalina.connector.Connector;
-import org.apache.coyote.http11.Http11Nio2Protocol;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+//@Configuration
 public class TomcatConfig {
     //自定义SpringBoot嵌入式Tomcat
-    @Bean
+    /*@Bean
     public TomcatServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new
                 TomcatServletWebServerFactory() {};
@@ -37,5 +31,5 @@ public class TomcatConfig {
         connector.setPort(9003); //自定义的端口，与源端口 可以共用，知识改了连接器而已
         connector.setRedirectPort(8443);
         return connector;
-    }
+    }*/
 }
