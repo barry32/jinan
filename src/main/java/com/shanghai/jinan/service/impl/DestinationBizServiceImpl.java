@@ -4,12 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.shanghai.jinan.entity.Cities;
 import com.shanghai.jinan.mapper.CitiesDao;
 import com.shanghai.jinan.service.IDestinationBizService;
-import com.shanghai.jinan.utils.RedisService;
+import com.shanghai.jinan.utils.RedisUtil;
 import com.shanghai.jinan.vo.CityVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -22,7 +21,7 @@ public class DestinationBizServiceImpl implements IDestinationBizService {
     @Autowired
     private CitiesDao citiesDao;
     @Autowired
-    private RedisService redisService;
+    private RedisUtil redisUtil;
     private static final String KEY_CITY_ITEMS = "KEY_CITY_ITEMS";
     @Override
     public List<CityVo> getCityList() {
@@ -31,12 +30,12 @@ public class DestinationBizServiceImpl implements IDestinationBizService {
 
     private List<CityVo> getDataCache() {
         List<CityVo> cityVos = new ArrayList<>();
-        Object valueByKey = redisService.getValueByKey(KEY_CITY_ITEMS);
+        Object valueByKey = redisUtil.get(KEY_CITY_ITEMS);
         if (valueByKey != null) {
             cityVos = JSONArray.parseArray((String) valueByKey, CityVo.class);
         } else {
             List<CityVo> data = getData();
-            redisService.setKeyValue(KEY_CITY_ITEMS, JSONArray.toJSONString(data));
+            redisUtil.set(KEY_CITY_ITEMS, JSONArray.toJSONString(data));
             cityVos.addAll(data);
         }
         return cityVos;
